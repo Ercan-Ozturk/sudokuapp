@@ -14,3 +14,9 @@ config/name="SudokuApp"
 run/main_scene="uid://cwefit04l3ghy"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=720
+window/size/viewport_height=720
+window/stretch/mode="canvas_items"

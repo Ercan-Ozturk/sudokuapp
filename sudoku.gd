@@ -1,5 +1,5 @@
 extends Node2D
-
+@onready var grid:GridContainer = $GridContainer 
 var matrix =  [
 	[9, 3, 0, 0, 7, 0, 0, 0, 0],
 	[6, 0, 0, 1, 9, 5, 0, 0, 0],
@@ -13,10 +13,24 @@ var matrix =  [
 ]
 
 const SIZE = 9
-func _init():
-	#matrix[3][2] = 5
-
+func _ready():
 	print(checkIfValid(2, 1, 7))
+	populateGrid()
+
+func createButton(val):
+	if val == 0:
+		val = ""
+	var button = Button.new()
+	button.text = str(val)
+	button.set("theme_override_font_sizes/font_size", 32)
+	button.custom_minimum_size = Vector2(62, 62)
+	grid.add_child(button)
+	return button
+func populateGrid():
+	for i in range(SIZE):
+		for j in range(SIZE):
+			createButton(matrix[i][j])
+			
 func checkIfValid(row, col, num):
 	for i in range(SIZE):
 		if matrix[i][col] == num:
