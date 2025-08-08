@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cwefit04l3ghy"]
+[gd_scene load_steps=3 format=3 uid="uid://cwefit04l3ghy"]
 
 [ext_resource type="Script" uid="uid://bxq5smsb4pum7" path="res://sudoku.gd" id="1_rdrvq"]
+[ext_resource type="Texture2D" uid="uid://cxoxl7k77xo11" path="res://Sudoku-Grid.png" id="2_23bkm"]
 
 [node name="Sudoku" type="Node2D"]
 script = ExtResource("1_rdrvq")
@@ -11,3 +12,9 @@ offset_top = 62.0
 offset_right = 102.0
 offset_bottom = 102.0
 columns = 9
+
+[node name="Sudoku-grid" type="Sprite2D" parent="."]
+z_index = -2
+position = Vector2(360, 358)
+scale = Vector2(0.57, 0.59)
+texture = ExtResource("2_23bkm")

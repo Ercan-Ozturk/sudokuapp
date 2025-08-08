@@ -64,6 +64,7 @@ func checkIfValid(row, col, num):
 	return true
 func changeNumber(row, col, num):
 	game_grid[row][col].text = str(num)
+	matrix[row][col] = num
 	
 func inputProcess(val):
 	if selectedButton:
