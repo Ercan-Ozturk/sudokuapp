@@ -11,25 +11,37 @@ var matrix =  [
 	[0, 0, 0, 4, 1, 9, 0, 0, 5],
 	[0, 0, 0, 0, 8, 0, 0, 7, 9]
 ]
+var selectedButton
 
 const SIZE = 9
 func _ready():
 	print(checkIfValid(2, 1, 7))
 	populateGrid()
 
-func createButton(val):
+func createButton(val, isInit):
 	if val == 0:
 		val = ""
 	var button = Button.new()
 	button.text = str(val)
+	if isInit:
+		button.disabled = true
+		button.set("theme_override_colors/font_color", Color("yellow"))
+		
 	button.set("theme_override_font_sizes/font_size", 32)
 	button.custom_minimum_size = Vector2(62, 62)
+	button.pressed.connect(onButtonPressed)
 	grid.add_child(button)
 	return button
+func onButtonPressed():
+	print("Button Pressed")
+	#selectedButton = 
 func populateGrid():
 	for i in range(SIZE):
 		for j in range(SIZE):
-			createButton(matrix[i][j])
+			if matrix[i][j] == 0:
+				createButton(matrix[i][j], false)
+			else:
+				createButton(matrix[i][j], true)
 			
 func checkIfValid(row, col, num):
 	for i in range(SIZE):
