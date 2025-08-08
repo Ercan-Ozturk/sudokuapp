@@ -1,5 +1,6 @@
 extends Node2D
-@onready var grid:GridContainer = $GridContainer 
+@onready var grid:GridContainer = $GridContainer
+var game_grid = []
 var matrix =  [
 	[9, 3, 0, 0, 7, 0, 0, 0, 0],
 	[6, 0, 0, 1, 9, 5, 0, 0, 0],
@@ -37,11 +38,13 @@ func onButtonPressed(pos:Vector2i):
 
 func populateGrid():
 	for i in range(SIZE):
+		var row = []
 		for j in range(SIZE):
 			if matrix[i][j] == 0:
-				createButton(matrix[i][j], false, Vector2i(i, j))
+				row.append(createButton(matrix[i][j], false, Vector2i(i, j)))
 			else:
-				createButton(matrix[i][j], true, Vector2i(i, j))
+				row.append(createButton(matrix[i][j], true, Vector2i(i, j)))
+		game_grid.append(row)
 			
 func checkIfValid(row, col, num):
 	for i in range(SIZE):
@@ -60,8 +63,7 @@ func checkIfValid(row, col, num):
 	changeNumber(row, col, num)
 	return true
 func changeNumber(row, col, num):
-	#$GridContainer. = str(num)
-	pass
+	game_grid[row][col].text = str(num)
 	
 func inputProcess(val):
 	if selectedButton:
