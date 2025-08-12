@@ -9,12 +9,12 @@ script = ExtResource("1_rdrvq")
 [node name="GridContainer" type="GridContainer" parent="."]
 offset_left = 62.0
 offset_top = 62.0
-offset_right = 102.0
-offset_bottom = 102.0
+offset_right = 136.0
+offset_bottom = 128.0
 columns = 9
 
 [node name="Sudoku-grid" type="Sprite2D" parent="."]
 z_index = -2
-position = Vector2(360, 358)
+position = Vector2(362, 362)
 scale = Vector2(0.57, 0.59)
 texture = ExtResource("2_23bkm")

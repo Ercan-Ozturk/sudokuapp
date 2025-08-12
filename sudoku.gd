@@ -25,9 +25,10 @@ func createButton(val, isInit, pos:Vector2i):
 	button.text = str(val)
 	if isInit:
 		button.disabled = true
-		button.set("theme_override_colors/font_color", Color("yellow"))
+		
 		
 	button.set("theme_override_font_sizes/font_size", 32)
+	button.set("theme_override_colors/font_color", Color("yellow"))
 	button.custom_minimum_size = Vector2i(62, 62)
 	button.pressed.connect(onButtonPressed.bind(pos))
 	grid.add_child(button)
@@ -72,34 +73,32 @@ func inputProcess(val):
 			print("Valid")
 		else:
 			print("Invalid placement")
+func removeInput():
+	if selectedButton:
+		var row = selectedButton[0]
+		var	col = selectedButton[1]
+		game_grid[row][col].text = ""
+		matrix[row][col] = 0
 func _input(event: InputEvent) -> void:
-	
+	if event.is_action_pressed("0"):
+		removeInput()
 	if event.is_action_pressed("1"):
-
 		inputProcess(1)
 	if event.is_action_pressed("2"):
-		
 		inputProcess(2)
 	if event.is_action_pressed("3"):
-		
 		inputProcess(3)
 	if event.is_action_pressed("4"):
-		
 		inputProcess(4)
 	if event.is_action_pressed("5"):
-		
 		inputProcess(5)
 	if event.is_action_pressed("6"):
-		
 		inputProcess(6)
 	if event.is_action_pressed("7"):
-		
 		inputProcess(7)
 	if event.is_action_pressed("8"):
-		
 		inputProcess(8)
-	if event.is_action_pressed("9"):
-		
+	if event.is_action_pressed("9"):	
 		inputProcess(9)
 
 	
