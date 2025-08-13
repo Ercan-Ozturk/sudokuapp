@@ -20,6 +20,7 @@ const SIZE = 9
 func _ready():
 	resetButton.pressed.connect(_onResetGridButtonPressed)
 	populateGrid()
+	_draw()
 
 func createButton(val, isInit, pos:Vector2i):
 	if val == 0:
@@ -28,10 +29,15 @@ func createButton(val, isInit, pos:Vector2i):
 	button.text = str(val)
 	if isInit:
 		button.disabled = true
-		
+	var styling = StyleBoxFlat.new()
+	styling.bg_color = Color("red")
+	button.add_theme_stylebox_override("hover", styling)
+	#button.remove_theme_stylebox_override("normal")
+	#button.set("custom_styles/normal",styling)
 	button.set("theme_override_font_sizes/font_size", 32)
 	button.set("theme_override_colors/font_color", Color("yellow"))
-	button.custom_minimum_size = Vector2i(62, 62)
+
+	button.custom_minimum_size = Vector2i(60, 60)
 	button.pressed.connect(onButtonPressed.bind(pos))
 	grid.add_child(button)
 	return button
@@ -50,7 +56,7 @@ func populateGrid():
 			else:
 				row.append(createButton(matrix[i][j], true, Vector2i(i, j)))
 		game_grid.append(row)
-			
+	
 func checkIfValid(row, col, num):
 	for i in range(SIZE):
 		if matrix[i][col] == num:
@@ -90,7 +96,29 @@ func resetGrid():
 	
 	populateGrid()
 	
+func _draw():
+	const START_X = 70
+	const START_Y = 65
+	const OFFSET = 10
+	const BUTTON_SIZE = 60
+	const VERTICAL_START = 60
+	draw_line(Vector2(START_X, START_Y + BUTTON_SIZE+OFFSET), Vector2(660, START_Y + BUTTON_SIZE + OFFSET), Color.GREEN, 3.0)
+	draw_line(Vector2(START_X, START_Y + BUTTON_SIZE*2 + OFFSET*2), Vector2(660, START_Y + BUTTON_SIZE*2 + OFFSET*2), Color.GREEN, 3.0)
+	draw_line(Vector2(START_X, START_Y + BUTTON_SIZE*3 + OFFSET*2), Vector2(660, START_Y + BUTTON_SIZE*3 + OFFSET*2), Color.RED, 3.0)
+	draw_line(Vector2(START_X, START_Y + BUTTON_SIZE*4 + OFFSET*2), Vector2(660, START_Y + BUTTON_SIZE*4 + OFFSET*2), Color.GREEN, 3.0)
+	draw_line(Vector2(START_X, START_Y + BUTTON_SIZE*5 + OFFSET*3), Vector2(660, START_Y + BUTTON_SIZE*5 + OFFSET*3), Color.GREEN, 3.0)
+	draw_line(Vector2(START_X, START_Y + BUTTON_SIZE*6 + OFFSET*3), Vector2(660, START_Y + BUTTON_SIZE*6 + OFFSET*3), Color.RED, 3.0)
+	draw_line(Vector2(START_X, START_Y + BUTTON_SIZE*7 + OFFSET*4), Vector2(660, START_Y + BUTTON_SIZE*7 + OFFSET*4), Color.GREEN, 3.0)
+	draw_line(Vector2(START_X, START_Y + BUTTON_SIZE*8 + OFFSET*4), Vector2(660, START_Y + BUTTON_SIZE*8 + OFFSET*4), Color.GREEN, 3.0)
 	
+	draw_line(Vector2(START_X + BUTTON_SIZE+OFFSET, VERTICAL_START), Vector2(START_X + BUTTON_SIZE + OFFSET, 660), Color.GREEN, 3.0)
+	draw_line(Vector2(START_X + BUTTON_SIZE*2 + OFFSET*2, VERTICAL_START), Vector2(START_X + BUTTON_SIZE*2 + OFFSET*2, 660), Color.GREEN, 3.0)
+	draw_line(Vector2(START_X + BUTTON_SIZE*3 + OFFSET*2, VERTICAL_START), Vector2(START_X + BUTTON_SIZE*3 + OFFSET*2, 660), Color.RED, 3.0)
+	draw_line(Vector2(START_X + BUTTON_SIZE*4 + OFFSET*2, VERTICAL_START), Vector2(START_X + BUTTON_SIZE*4 + OFFSET*2, 660), Color.GREEN, 3.0)
+	draw_line(Vector2(START_X + BUTTON_SIZE*5 + OFFSET*3, VERTICAL_START), Vector2(START_X + BUTTON_SIZE*5 + OFFSET*3, 660), Color.GREEN, 3.0)
+	draw_line(Vector2(START_X + BUTTON_SIZE*6 + OFFSET*3, VERTICAL_START), Vector2(START_X + BUTTON_SIZE*6 + OFFSET*3, 660), Color.RED, 3.0)
+	draw_line(Vector2(START_X + BUTTON_SIZE*7 + OFFSET*4, VERTICAL_START), Vector2(START_X + BUTTON_SIZE*7 + OFFSET*4, 660), Color.GREEN, 3.0)
+	draw_line(Vector2(START_X + BUTTON_SIZE*8 + OFFSET*4, VERTICAL_START), Vector2(START_X + BUTTON_SIZE*8 + OFFSET*4, 660), Color.GREEN, 3.0)
 func inputProcess(val):
 	if selectedButton:
 		if checkIfValid(selectedButton.x, selectedButton.y, val):

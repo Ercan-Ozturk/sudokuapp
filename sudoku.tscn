@@ -1,28 +1,31 @@
 [gd_scene load_steps=3 format=3 uid="uid://cwefit04l3ghy"]
 
 [ext_resource type="Script" uid="uid://bxq5smsb4pum7" path="res://sudoku.gd" id="1_rdrvq"]
-[ext_resource type="Texture2D" uid="uid://cxoxl7k77xo11" path="res://Sudoku-Grid.png" id="2_23bkm"]
+
+[sub_resource type="Theme" id="Theme_23bkm"]
 
 [node name="Sudoku" type="Node2D"]
 script = ExtResource("1_rdrvq")
 
 [node name="GridContainer" type="GridContainer" parent="."]
-offset_left = 62.0
-offset_top = 62.0
-offset_right = 136.0
-offset_bottom = 128.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 360.0
+offset_top = 360.0
+offset_right = 360.0
+offset_bottom = 360.0
+grow_horizontal = 2
+grow_vertical = 2
 columns = 9
-
-[node name="Sudoku-grid" type="Sprite2D" parent="."]
-z_index = -2
-position = Vector2(362, 362)
-scale = Vector2(0.57, 0.59)
-texture = ExtResource("2_23bkm")
 
 [node name="Button" type="Button" parent="."]
 offset_left = 336.0
 offset_top = 688.0
 offset_right = 387.0
 offset_bottom = 719.0
+theme = SubResource("Theme_23bkm")
 text = "Reset
 "
