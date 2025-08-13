@@ -18,3 +18,11 @@ z_index = -2
 position = Vector2(362, 362)
 scale = Vector2(0.57, 0.59)
 texture = ExtResource("2_23bkm")
+
+[node name="Button" type="Button" parent="."]
+offset_left = 336.0
+offset_top = 688.0
+offset_right = 387.0
+offset_bottom = 719.0
+text = "Reset
+"

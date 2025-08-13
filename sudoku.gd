@@ -1,7 +1,9 @@
 extends Node2D
 @onready var grid:GridContainer = $GridContainer
+@onready var resetButton: Button = $Button
 var game_grid = []
-var matrix =  [
+
+var matrix = [
 	[9, 3, 0, 0, 7, 0, 0, 0, 0],
 	[6, 0, 0, 1, 9, 5, 0, 0, 0],
 	[0, 5, 8, 0, 0, 0, 0, 6, 0],
@@ -16,6 +18,7 @@ var selectedButton: Vector2i
 
 const SIZE = 9
 func _ready():
+	resetButton.pressed.connect(_onResetGridButtonPressed)
 	populateGrid()
 
 func createButton(val, isInit, pos:Vector2i):
@@ -26,7 +29,6 @@ func createButton(val, isInit, pos:Vector2i):
 	if isInit:
 		button.disabled = true
 		
-		
 	button.set("theme_override_font_sizes/font_size", 32)
 	button.set("theme_override_colors/font_color", Color("yellow"))
 	button.custom_minimum_size = Vector2i(62, 62)
@@ -36,6 +38,8 @@ func createButton(val, isInit, pos:Vector2i):
 func onButtonPressed(pos:Vector2i):
 	print("Button Pressed: ", pos)
 	selectedButton = pos
+func _onResetGridButtonPressed():
+	resetGrid()
 
 func populateGrid():
 	for i in range(SIZE):
@@ -66,6 +70,26 @@ func checkIfValid(row, col, num):
 func changeNumber(row, col, num):
 	game_grid[row][col].text = str(num)
 	matrix[row][col] = num
+func resetGrid():
+	matrix = [
+		[9, 3, 0, 0, 7, 0, 0, 0, 0],
+		[6, 0, 0, 1, 9, 5, 0, 0, 0],
+		[0, 5, 8, 0, 0, 0, 0, 6, 0],
+		[8, 0, 0, 0, 6, 0, 0, 0, 3],
+		[4, 0, 0, 8, 0, 3, 0, 0, 1],
+		[7, 0, 0, 0, 2, 0, 0, 0, 6],
+		[0, 6, 0, 0, 0, 0, 2, 8, 0],
+		[0, 0, 0, 4, 1, 9, 0, 0, 5],
+		[0, 0, 0, 0, 8, 0, 0, 7, 9]
+	]
+	game_grid = []
+	var children = grid.get_children()
+	for c in children:
+		grid.remove_child(c)
+		c.queue_free()
+	
+	populateGrid()
+	
 	
 func inputProcess(val):
 	if selectedButton:
