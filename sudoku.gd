@@ -1,16 +1,20 @@
 extends Node2D
 
 @onready var grid:GridContainer = $GridContainer
-@onready var resetButton: Button = $CanvasLayer/Button
+@onready var resetButton: Button = $CanvasLayer/ResetButton
+@onready var newButton: Button = $CanvasLayer/NewButton
 var game_grid = []
 var sudokus_list = Sudokus.new().sudokus
 var matrix = sudokus_list.pick_random()
+var rawMatrix = matrix.duplicate(true)
 
 var selectedButton: Vector2i
 
 const SIZE = 9
 func _ready():
 	resetButton.pressed.connect(_onResetGridButtonPressed)
+	newButton.pressed.connect(_onNewButtonPressed)
+	
 	populateGrid()
 	_draw()
 	
@@ -38,7 +42,9 @@ func onButtonPressed(pos:Vector2i):
 	print("Button Pressed: ", pos)
 	selectedButton = pos
 func _onResetGridButtonPressed():
-	resetGrid()
+	resetGrid(false)
+func _onNewButtonPressed():
+	resetGrid(true)
 
 func populateGrid():
 	for i in range(SIZE):
@@ -78,8 +84,12 @@ func isSudokuDone():
 func changeNumber(row, col, num):
 	game_grid[row][col].text = str(num)
 	matrix[row][col] = num
-func resetGrid():
-	matrix = sudokus_list.pick_random()
+func resetGrid(isNew):
+	if isNew == true:
+		matrix = sudokus_list.pick_random()
+		rawMatrix = matrix.duplicate(true)
+	else:
+		matrix = rawMatrix.duplicate(true)
 	game_grid = []
 	var children = grid.get_children()
 	for c in children:

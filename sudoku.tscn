@@ -31,9 +31,9 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -125.0
-offset_top = -280.0
+offset_top = -320.0
 offset_right = 125.0
-offset_bottom = -240.0
+offset_bottom = -280.0
 grow_horizontal = 2
 grow_vertical = 0
 size_flags_horizontal = 6
@@ -97,16 +97,16 @@ text = "1"
 layout_mode = 2
 text = "1"
 
-[node name="Button" type="Button" parent="CanvasLayer"]
+[node name="ResetButton" type="Button" parent="CanvasLayer"]
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -33.5
-offset_top = -230.0
+offset_top = -240.0
 offset_right = 33.5
-offset_bottom = -190.0
+offset_bottom = -200.0
 grow_horizontal = 2
 grow_vertical = 0
 size_flags_horizontal = 4
@@ -114,3 +114,20 @@ theme = SubResource("Theme_23bkm")
 theme_override_font_sizes/font_size = 22
 text = "Reset
 "
+
+[node name="NewButton" type="Button" parent="CanvasLayer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -33.5
+offset_top = -180.0
+offset_right = 33.5
+offset_bottom = -140.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+theme = SubResource("Theme_23bkm")
+theme_override_font_sizes/font_size = 22
+text = "New"
