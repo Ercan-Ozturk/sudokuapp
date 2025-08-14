@@ -1,19 +1,11 @@
 extends Node2D
+
 @onready var grid:GridContainer = $GridContainer
 @onready var resetButton: Button = $Button
 var game_grid = []
+var sudokus_list = Sudokus.new().sudokus
+var matrix = sudokus_list.pick_random()
 
-var matrix = [
-	[9, 3, 0, 0, 7, 0, 0, 0, 0],
-	[6, 0, 0, 1, 9, 5, 0, 0, 0],
-	[0, 5, 8, 0, 0, 0, 0, 6, 0],
-	[8, 0, 0, 0, 6, 0, 0, 0, 3],
-	[4, 0, 0, 8, 0, 3, 0, 0, 1],
-	[7, 0, 0, 0, 2, 0, 0, 0, 6],
-	[0, 6, 0, 0, 0, 0, 2, 8, 0],
-	[0, 0, 0, 4, 1, 9, 0, 0, 5],
-	[0, 0, 0, 0, 8, 0, 0, 7, 9]
-]
 var selectedButton: Vector2i
 
 const SIZE = 9
@@ -21,6 +13,7 @@ func _ready():
 	resetButton.pressed.connect(_onResetGridButtonPressed)
 	populateGrid()
 	_draw()
+	
 
 func createButton(val, isInit, pos:Vector2i):
 	if val == 0:
@@ -57,7 +50,7 @@ func populateGrid():
 				row.append(createButton(matrix[i][j], true, Vector2i(i, j)))
 		game_grid.append(row)
 	
-func checkIfValid(row, col, num):
+func placeNumber(row, col, num):
 	for i in range(SIZE):
 		if matrix[i][col] == num:
 			return false
@@ -72,22 +65,21 @@ func checkIfValid(row, col, num):
 			if matrix[i+s_row][j+s_col] == num:
 				return false
 	changeNumber(row, col, num)
+	isSudokuDone()
 	return true
+func isSudokuDone():
+	for i in range(SIZE):
+		for j in range(SIZE):
+			if matrix[i][j] == 0:
+				return
+	$Congrats.text = "Congrats"
+	print("Congrats!")
+	
 func changeNumber(row, col, num):
 	game_grid[row][col].text = str(num)
 	matrix[row][col] = num
 func resetGrid():
-	matrix = [
-		[9, 3, 0, 0, 7, 0, 0, 0, 0],
-		[6, 0, 0, 1, 9, 5, 0, 0, 0],
-		[0, 5, 8, 0, 0, 0, 0, 6, 0],
-		[8, 0, 0, 0, 6, 0, 0, 0, 3],
-		[4, 0, 0, 8, 0, 3, 0, 0, 1],
-		[7, 0, 0, 0, 2, 0, 0, 0, 6],
-		[0, 6, 0, 0, 0, 0, 2, 8, 0],
-		[0, 0, 0, 4, 1, 9, 0, 0, 5],
-		[0, 0, 0, 0, 8, 0, 0, 7, 9]
-	]
+	matrix = sudokus_list.pick_random()
 	game_grid = []
 	var children = grid.get_children()
 	for c in children:
@@ -100,6 +92,7 @@ func _draw():
 	const START_X = 75
 	const END_X = 645
 	const START_Y = 65
+	const END_Y = 645
 	const OFFSET = 10
 	const BUTTON_SIZE = 60
 	const VERTICAL_START = 75
@@ -112,17 +105,17 @@ func _draw():
 	draw_line(Vector2(START_X, START_Y + BUTTON_SIZE*7 + OFFSET*3.5), Vector2(END_X, START_Y + BUTTON_SIZE*7 + OFFSET*3.5), Color.SKY_BLUE, 3.0)
 	draw_line(Vector2(START_X, START_Y + BUTTON_SIZE*8 + OFFSET*4), Vector2(END_X, START_Y + BUTTON_SIZE*8 + OFFSET*4), Color.SKY_BLUE, 3.0)
 	
-	draw_line(Vector2(START_X + BUTTON_SIZE, VERTICAL_START), Vector2(START_X + BUTTON_SIZE, 650), Color.SKY_BLUE, 3.0)
-	draw_line(Vector2(START_X + BUTTON_SIZE*2 + OFFSET/2, VERTICAL_START), Vector2(START_X + BUTTON_SIZE*2 + OFFSET/2, 650), Color.SKY_BLUE, 3.0)
-	draw_line(Vector2(START_X + BUTTON_SIZE*3 + OFFSET, VERTICAL_START), Vector2(START_X + BUTTON_SIZE*3 + OFFSET, 650), Color.RED, 3.0)
-	draw_line(Vector2(START_X + BUTTON_SIZE*4 + OFFSET*1.5, VERTICAL_START), Vector2(START_X + BUTTON_SIZE*4 + OFFSET*1.5, 650), Color.SKY_BLUE, 3.0)
-	draw_line(Vector2(START_X + BUTTON_SIZE*5 + OFFSET*2, VERTICAL_START), Vector2(START_X + BUTTON_SIZE*5 + OFFSET*2, 650), Color.SKY_BLUE, 3.0)
-	draw_line(Vector2(START_X + BUTTON_SIZE*6 + OFFSET*2, VERTICAL_START), Vector2(START_X + BUTTON_SIZE*6 + OFFSET*2, 650), Color.RED, 3.0)
-	draw_line(Vector2(START_X + BUTTON_SIZE*7 + OFFSET*2.5, VERTICAL_START), Vector2(START_X + BUTTON_SIZE*7 + OFFSET*2.5, 650), Color.SKY_BLUE, 3.0)
-	draw_line(Vector2(START_X + BUTTON_SIZE*8 + OFFSET*3, VERTICAL_START), Vector2(START_X + BUTTON_SIZE*8 + OFFSET*3, 650), Color.SKY_BLUE, 3.0)
+	draw_line(Vector2(START_X + BUTTON_SIZE, VERTICAL_START), Vector2(START_X + BUTTON_SIZE, END_Y), Color.SKY_BLUE, 3.0)
+	draw_line(Vector2(START_X + BUTTON_SIZE*2 + OFFSET/2, VERTICAL_START), Vector2(START_X + BUTTON_SIZE*2 + OFFSET/2, END_Y), Color.SKY_BLUE, 3.0)
+	draw_line(Vector2(START_X + BUTTON_SIZE*3 + OFFSET, VERTICAL_START), Vector2(START_X + BUTTON_SIZE*3 + OFFSET, END_Y), Color.RED, 3.0)
+	draw_line(Vector2(START_X + BUTTON_SIZE*4 + OFFSET*1.5, VERTICAL_START), Vector2(START_X + BUTTON_SIZE*4 + OFFSET*1.5, END_Y), Color.SKY_BLUE, 3.0)
+	draw_line(Vector2(START_X + BUTTON_SIZE*5 + OFFSET*2, VERTICAL_START), Vector2(START_X + BUTTON_SIZE*5 + OFFSET*2, END_Y), Color.SKY_BLUE, 3.0)
+	draw_line(Vector2(START_X + BUTTON_SIZE*6 + OFFSET*2, VERTICAL_START), Vector2(START_X + BUTTON_SIZE*6 + OFFSET*2, END_Y), Color.RED, 3.0)
+	draw_line(Vector2(START_X + BUTTON_SIZE*7 + OFFSET*2.5, VERTICAL_START), Vector2(START_X + BUTTON_SIZE*7 + OFFSET*2.5, END_Y), Color.SKY_BLUE, 3.0)
+	draw_line(Vector2(START_X + BUTTON_SIZE*8 + OFFSET*3, VERTICAL_START), Vector2(START_X + BUTTON_SIZE*8 + OFFSET*3, END_Y), Color.SKY_BLUE, 3.0)
 func inputProcess(val):
 	if selectedButton:
-		if checkIfValid(selectedButton.x, selectedButton.y, val):
+		if placeNumber(selectedButton.x, selectedButton.y, val):
 			print("Valid")
 		else:
 			print("Invalid placement")
