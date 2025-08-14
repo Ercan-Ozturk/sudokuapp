@@ -1,7 +1,7 @@
 extends Node2D
 
 @onready var grid:GridContainer = $GridContainer
-@onready var resetButton: Button = $Button
+@onready var resetButton: Button = $CanvasLayer/Button
 var game_grid = []
 var sudokus_list = Sudokus.new().sudokus
 var matrix = sudokus_list.pick_random()
@@ -72,7 +72,7 @@ func isSudokuDone():
 		for j in range(SIZE):
 			if matrix[i][j] == 0:
 				return
-	$Congrats.text = "Congrats"
+	$CanvasLayer/GameStatusText.text = "Congrats"
 	print("Congrats!")
 	
 func changeNumber(row, col, num):
@@ -117,8 +117,10 @@ func inputProcess(val):
 	if selectedButton:
 		if placeNumber(selectedButton.x, selectedButton.y, val):
 			print("Valid")
+			$CanvasLayer/GameStatusText.text = "Valid Placement"
 		else:
 			print("Invalid placement")
+			$CanvasLayer/GameStatusText.text = "Invalid Placement!"
 func removeInput():
 	if selectedButton:
 		var row = selectedButton[0]
@@ -126,6 +128,7 @@ func removeInput():
 		game_grid[row][col].text = ""
 		matrix[row][col] = 0
 func _input(event: InputEvent) -> void:
+	
 	if event.is_action_pressed("0"):
 		removeInput()
 	if event.is_action_pressed("1"):
