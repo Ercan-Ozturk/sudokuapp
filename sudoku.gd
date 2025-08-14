@@ -3,22 +3,23 @@ extends Node2D
 @onready var grid:GridContainer = $GridContainer
 @onready var resetButton: Button = $CanvasLayer/ResetButton
 @onready var newButton: Button = $CanvasLayer/NewButton
+@onready var undoButton: Button = $CanvasLayer/UndoButton
+@onready var statusText: RichTextLabel = $CanvasLayer/GameStatusText
 var game_grid = []
 var sudokus_list = Sudokus.new().sudokus
 var matrix = sudokus_list.pick_random()
 var rawMatrix = matrix.duplicate(true)
-
+var lastAction: SudokuAction = null
 var selectedButton: Vector2i
 
 const SIZE = 9
 func _ready():
 	resetButton.pressed.connect(_onResetGridButtonPressed)
 	newButton.pressed.connect(_onNewButtonPressed)
-	
+	undoButton.pressed.connect(_onUndoButtonPressed)
 	populateGrid()
 	_draw()
 	
-
 func createButton(val, isInit, pos:Vector2i):
 	if val == 0:
 		val = ""
@@ -42,10 +43,22 @@ func onButtonPressed(pos:Vector2i):
 	print("Button Pressed: ", pos)
 	selectedButton = pos
 func _onResetGridButtonPressed():
+	statusText.text = "Sudoku is reset"
 	resetGrid(false)
 func _onNewButtonPressed():
+	statusText.text = "New Sudoku"
 	resetGrid(true)
-
+func _onUndoButtonPressed():
+	undo()
+func undo():
+	if lastAction == null:
+		statusText.text = "Can't Undo"
+		return
+	statusText.text = "Undo"
+	changeNumber(lastAction.row, lastAction.col, 0)
+	lastAction = null
+	undoButton.disabled = true
+	
 func populateGrid():
 	for i in range(SIZE):
 		var row = []
@@ -82,9 +95,16 @@ func isSudokuDone():
 	print("Congrats!")
 	
 func changeNumber(row, col, num):
-	game_grid[row][col].text = str(num)
+	if num == 0:
+		game_grid[row][col].text = ""
+	else:
+		game_grid[row][col].text = str(num)
 	matrix[row][col] = num
+	lastAction = SudokuAction.new(row, col, num)
+	
 func resetGrid(isNew):
+	lastAction = null
+	undoButton.disabled = true
 	if isNew == true:
 		matrix = sudokus_list.pick_random()
 		rawMatrix = matrix.duplicate(true)
@@ -127,7 +147,8 @@ func inputProcess(val):
 	if selectedButton:
 		if placeNumber(selectedButton.x, selectedButton.y, val):
 			print("Valid")
-			$CanvasLayer/GameStatusText.text = "Valid Placement"
+			statusText.text = "Valid Placement"
+			undoButton.disabled = false
 		else:
 			print("Invalid placement")
 			$CanvasLayer/GameStatusText.text = "Invalid Placement!"

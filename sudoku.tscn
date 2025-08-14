@@ -115,6 +115,24 @@ theme_override_font_sizes/font_size = 22
 text = "Reset
 "
 
+[node name="UndoButton" type="Button" parent="CanvasLayer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -127.5
+offset_top = -210.0
+offset_right = -60.5
+offset_bottom = -170.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+theme = SubResource("Theme_23bkm")
+theme_override_font_sizes/font_size = 22
+disabled = true
+text = "Undo"
+
 [node name="NewButton" type="Button" parent="CanvasLayer"]
 anchors_preset = 7
 anchor_left = 0.5
