@@ -143,7 +143,7 @@ func _draw():
 	draw_line(Vector2(START_X + BUTTON_SIZE*7 + OFFSET*2.5, VERTICAL_START), Vector2(START_X + BUTTON_SIZE*7 + OFFSET*2.5, END_Y), Color.SKY_BLUE, 3.0)
 	draw_line(Vector2(START_X + BUTTON_SIZE*8 + OFFSET*3, VERTICAL_START), Vector2(START_X + BUTTON_SIZE*8 + OFFSET*3, END_Y), Color.SKY_BLUE, 3.0)
 func inputProcess(val):
-	if selectedButton:
+	if selectedButton != null:
 		if placeNumber(selectedButton.x, selectedButton.y, val):
 			print("Valid")
 			statusText.text = "Valid Placement"
