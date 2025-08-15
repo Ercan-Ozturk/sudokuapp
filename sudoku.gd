@@ -57,7 +57,9 @@ func undo():
 		return
 	statusText.text = "Undo"
 	var lastAction = actions.pop_back()
-	changeNumber(lastAction.row, lastAction.col, 0)
+	#changeNumber(lastAction.row, lastAction.col, 0)
+	game_grid[lastAction.row][lastAction.col].text = ""
+	matrix[lastAction.row][lastAction.col] = 0
 	if actions.size() == 0:
 		undoButton.disabled = true
 	
@@ -97,10 +99,7 @@ func isSudokuDone():
 	print("Congrats!")
 	
 func changeNumber(row, col, num):
-	if num == 0:
-		game_grid[row][col].text = ""
-	else:
-		game_grid[row][col].text = str(num)
+	game_grid[row][col].text = str(num)
 	matrix[row][col] = num
 	actions.append(SudokuAction.new(row, col, num))
 	
