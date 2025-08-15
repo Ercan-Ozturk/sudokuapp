@@ -9,7 +9,7 @@ var game_grid = []
 var sudokus_list = Sudokus.new().sudokus
 var matrix = sudokus_list.pick_random()
 var rawMatrix = matrix.duplicate(true)
-var lastAction: SudokuAction = null
+var actions: Array[SudokuAction]
 var selectedButton: Vector2i
 
 const SIZE = 9
@@ -51,13 +51,15 @@ func _onNewButtonPressed():
 func _onUndoButtonPressed():
 	undo()
 func undo():
-	if lastAction == null:
+	if actions.size() == 0:
 		statusText.text = "Can't Undo"
+		
 		return
 	statusText.text = "Undo"
+	var lastAction = actions.pop_back()
 	changeNumber(lastAction.row, lastAction.col, 0)
-	lastAction = null
-	undoButton.disabled = true
+	if actions.size() == 0:
+		undoButton.disabled = true
 	
 func populateGrid():
 	for i in range(SIZE):
@@ -100,10 +102,10 @@ func changeNumber(row, col, num):
 	else:
 		game_grid[row][col].text = str(num)
 	matrix[row][col] = num
-	lastAction = SudokuAction.new(row, col, num)
+	actions.append(SudokuAction.new(row, col, num))
 	
 func resetGrid(isNew):
-	lastAction = null
+	actions = []
 	undoButton.disabled = true
 	if isNew == true:
 		matrix = sudokus_list.pick_random()
