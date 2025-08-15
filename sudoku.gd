@@ -53,11 +53,9 @@ func _onUndoButtonPressed():
 func undo():
 	if actions.size() == 0:
 		statusText.text = "Can't Undo"
-		
 		return
-	statusText.text = "Undo"
-	var lastAction = actions.pop_back()
-	#changeNumber(lastAction.row, lastAction.col, 0)
+	var lastAction: SudokuAction = actions.pop_back()
+	statusText.text = "Undo " + lastAction.to_string()
 	game_grid[lastAction.row][lastAction.col].text = ""
 	matrix[lastAction.row][lastAction.col] = 0
 	if actions.size() == 0:

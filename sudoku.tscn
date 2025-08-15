@@ -30,20 +30,18 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -125.0
+offset_left = -176.0
 offset_top = -320.0
-offset_right = 125.0
+offset_right = 174.0
 offset_bottom = -280.0
 grow_horizontal = 2
 grow_vertical = 0
-size_flags_horizontal = 6
-size_flags_vertical = 4
+size_flags_vertical = 6
 theme_override_font_sizes/normal_font_size = 26
 text = "Welcome!"
 scroll_active = false
 autowrap_mode = 0
 horizontal_alignment = 1
-metadata/_edit_use_anchors_ = true
 
 [node name="NumPad" type="GridContainer" parent="CanvasLayer"]
 visible = false
