@@ -22,6 +22,10 @@ window/size/viewport_height=1000
 window/stretch/mode="canvas_items"
 window/handheld/orientation=1
 
+[global_group]
+
+Persist=""
+
 [input]
 
 1={
@@ -78,4 +82,5 @@ window/handheld/orientation=1
 
 [rendering]
 
+textures/vram_compression/import_etc2_astc=true
 environment/defaults/default_clear_color=Color(0.103175, 0.275081, 0.481129, 0.984314)
