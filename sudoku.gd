@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var grid:GridContainer = $GridContainer
+@onready var grid:GridContainer = $CanvasLayer/GridContainer
 @onready var resetButton: Button = $CanvasLayer/Controls/ResetButton
 @onready var newButton: Button = $CanvasLayer/Controls/NewButton
 @onready var undoButton: Button = $CanvasLayer/Controls/UndoButton
@@ -160,12 +160,15 @@ func resetGrid(isNew):
 
 func _draw():
 	const START_X = 75
-	const END_X = 645
-	const START_Y = 65
-	const END_Y = 645
+	#const END_X = 645
 	const OFFSET = 10
 	const BUTTON_SIZE = 60
 	const VERTICAL_START = 75
+	const START_Y = 65
+	const END_Y = 645
+	var END_X = get_viewport_rect().size.x
+	
+
 	draw_line(Vector2(START_X, START_Y + BUTTON_SIZE+OFFSET), Vector2(END_X, START_Y + BUTTON_SIZE + OFFSET), Color.SKY_BLUE, 3.0)
 	draw_line(Vector2(START_X, START_Y + BUTTON_SIZE*2 + OFFSET*1.5), Vector2(END_X, START_Y + BUTTON_SIZE*2 + OFFSET*1.5), Color.SKY_BLUE, 3.0)
 	draw_line(Vector2(START_X, START_Y + BUTTON_SIZE*3 + OFFSET*2), Vector2(END_X, START_Y + BUTTON_SIZE*3 + OFFSET*2), Color.RED, 3.0)
