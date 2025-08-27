@@ -1,11 +1,11 @@
 extends Node2D
 
-@onready var grid:GridContainer = $CanvasLayer/GridContainer
-@onready var resetButton: Button = $CanvasLayer/Controls/ResetButton
-@onready var newButton: Button = $CanvasLayer/Controls/NewButton
-@onready var undoButton: Button = $CanvasLayer/Controls/UndoButton
-@onready var saveButton: Button = $CanvasLayer/Controls/SaveButton
-@onready var statusText: RichTextLabel = $CanvasLayer/GameStatusText
+@onready var grid:GridContainer = $CanvasLayer/VBox/GridContainer
+@onready var resetButton: Button = $CanvasLayer/VBox/Controls/ResetButton
+@onready var newButton: Button = $CanvasLayer/VBox/Controls/NewButton
+@onready var undoButton: Button = $CanvasLayer/VBox/Controls/UndoButton
+@onready var saveButton: Button = $CanvasLayer/VBox/Controls/SaveButton
+@onready var statusText: RichTextLabel = $CanvasLayer/VBox/GameStatusText
 var game_grid = []
 var sudokus_list = Sudokus.new().sudokus
 var matrix = sudokus_list.pick_random()
@@ -160,13 +160,13 @@ func resetGrid(isNew):
 
 func _draw():
 	const START_X = 75
-	#const END_X = 645
+	const END_X = 645
 	const OFFSET = 10
 	const BUTTON_SIZE = 60
 	const VERTICAL_START = 75
 	const START_Y = 65
 	const END_Y = 645
-	var END_X = get_viewport_rect().size.x
+	#var END_X = get_viewport_rect().size.x
 	
 
 	draw_line(Vector2(START_X, START_Y + BUTTON_SIZE+OFFSET), Vector2(END_X, START_Y + BUTTON_SIZE + OFFSET), Color.SKY_BLUE, 3.0)
@@ -232,3 +232,42 @@ func _on_load_button_pressed() -> void:
 	load_game()
 	eraseGrid()
 	populateGrid()
+
+
+func _on_button1_pressed() -> void:
+	inputProcess(1)
+
+func _on_button_2_pressed() -> void:
+	inputProcess(2)
+
+
+func _on_button_3_pressed() -> void:
+	inputProcess(3)
+
+
+func _on_button_4_pressed() -> void:
+	inputProcess(4)
+
+
+func _on_button_5_pressed() -> void:
+	inputProcess(5)
+
+
+func _on_button_6_pressed() -> void:
+	inputProcess(6)
+
+
+func _on_button_7_pressed() -> void:
+	inputProcess(7)
+
+
+func _on_button_8_pressed() -> void:
+	inputProcess(8)
+
+
+func _on_button_9_pressed() -> void:
+	inputProcess(9)
+
+
+func _on_clear_button_pressed() -> void:
+	removeInput()

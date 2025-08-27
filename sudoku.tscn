@@ -10,18 +10,30 @@ script = ExtResource("1_rdrvq")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 follow_viewport_enabled = true
 
-[node name="GameStatusText" type="RichTextLabel" parent="CanvasLayer"]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
+[node name="VBox" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -85.0
-offset_top = 350.0
-offset_right = 85.0
-offset_bottom = -550.0
 grow_horizontal = 2
-grow_vertical = 0
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="MarginContainer4" type="MarginContainer" parent="CanvasLayer/VBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 70
+theme_override_constants/margin_right = 50
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/VBox"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+columns = 9
+
+[node name="GameStatusText" type="RichTextLabel" parent="CanvasLayer/VBox"]
+layout_mode = 2
 size_flags_vertical = 6
 theme_override_font_sizes/normal_font_size = 36
 text = "Welcome!"
@@ -30,93 +42,106 @@ scroll_active = false
 autowrap_mode = 0
 horizontal_alignment = 1
 
-[node name="NumPad" type="GridContainer" parent="CanvasLayer"]
-visible = false
+[node name="NumPad" type="HBoxContainer" parent="CanvasLayer/VBox"]
 layout_direction = 2
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -31.0
-offset_top = -101.0
-offset_right = 31.0
-grow_horizontal = 2
-grow_vertical = 0
-pivot_offset = Vector2(288, -104)
-columns = 3
-
-[node name="Button" type="Button" parent="CanvasLayer/NumPad"]
 layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Button" type="Button" parent="CanvasLayer/VBox/NumPad"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+action_mode = 0
 text = "1"
 
-[node name="Button2" type="Button" parent="CanvasLayer/NumPad"]
+[node name="Button2" type="Button" parent="CanvasLayer/VBox/NumPad"]
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
-text = "1"
+text = "2"
 
-[node name="Button3" type="Button" parent="CanvasLayer/NumPad"]
+[node name="Button3" type="Button" parent="CanvasLayer/VBox/NumPad"]
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
-text = "1"
+text = "3"
 
-[node name="Button4" type="Button" parent="CanvasLayer/NumPad"]
+[node name="Button4" type="Button" parent="CanvasLayer/VBox/NumPad"]
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
-text = "1"
+text = "4"
 
-[node name="Button5" type="Button" parent="CanvasLayer/NumPad"]
+[node name="Button5" type="Button" parent="CanvasLayer/VBox/NumPad"]
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
-text = "1"
+text = "5"
 
-[node name="Button6" type="Button" parent="CanvasLayer/NumPad"]
+[node name="Button6" type="Button" parent="CanvasLayer/VBox/NumPad"]
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
-text = "1"
+text = "6"
 
-[node name="Button7" type="Button" parent="CanvasLayer/NumPad"]
+[node name="Button7" type="Button" parent="CanvasLayer/VBox/NumPad"]
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
-text = "1"
+text = "7"
 
-[node name="Button8" type="Button" parent="CanvasLayer/NumPad"]
+[node name="Button8" type="Button" parent="CanvasLayer/VBox/NumPad"]
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
-text = "1"
+text = "8"
 
-[node name="Button9" type="Button" parent="CanvasLayer/NumPad"]
+[node name="Button9" type="Button" parent="CanvasLayer/VBox/NumPad"]
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
-text = "1"
+text = "9"
 
-[node name="Controls" type="GridContainer" parent="CanvasLayer"]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_bottom = -100.0
-grow_horizontal = 2
-grow_vertical = 0
+[node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/VBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 250
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 250
+theme_override_constants/margin_bottom = 10
+
+[node name="ClearButton" type="Button" parent="CanvasLayer/VBox/MarginContainer3"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+text = "Clear Selection
+"
+
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/VBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="Controls" type="GridContainer" parent="CanvasLayer/VBox"]
+layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
 columns = 2
 
-[node name="SaveButton" type="Button" parent="CanvasLayer/Controls"]
+[node name="SaveButton" type="Button" parent="CanvasLayer/VBox/Controls"]
 layout_mode = 2
 theme = SubResource("Theme_23bkm")
 theme_override_font_sizes/font_size = 22
 text = "Save
 "
 
-[node name="LoadButton" type="Button" parent="CanvasLayer/Controls"]
+[node name="LoadButton" type="Button" parent="CanvasLayer/VBox/Controls"]
 layout_mode = 2
 theme = SubResource("Theme_23bkm")
 theme_override_font_sizes/font_size = 22
 text = "Load"
 metadata/_edit_use_anchors_ = true
 
-[node name="UndoButton" type="Button" parent="CanvasLayer/Controls"]
+[node name="UndoButton" type="Button" parent="CanvasLayer/VBox/Controls"]
 layout_mode = 2
 theme = SubResource("Theme_23bkm")
 theme_override_font_sizes/font_size = 22
 disabled = true
 text = "Undo"
 
-[node name="ResetButton" type="Button" parent="CanvasLayer/Controls"]
+[node name="ResetButton" type="Button" parent="CanvasLayer/VBox/Controls"]
 layout_mode = 2
 size_flags_vertical = 3
 theme = SubResource("Theme_23bkm")
@@ -125,24 +150,28 @@ text = "Reset
 "
 metadata/_edit_use_anchors_ = true
 
-[node name="NewButton" type="Button" parent="CanvasLayer/Controls"]
+[node name="NewButton" type="Button" parent="CanvasLayer/VBox/Controls"]
 layout_mode = 2
 theme = SubResource("Theme_23bkm")
 theme_override_font_sizes/font_size = 22
 text = "New"
 metadata/_edit_use_anchors_ = true
 
-[node name="GridContainer" type="GridContainer" parent="CanvasLayer"]
-anchors_preset = -1
-anchor_left = 0.5
-anchor_top = 0.06
-anchor_right = 0.5
-anchor_bottom = 0.95
-offset_top = 2.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 6
-size_flags_vertical = 6
-columns = 9
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/VBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
 
-[connection signal="pressed" from="CanvasLayer/Controls/LoadButton" to="." method="_on_load_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBox/NumPad/Button" to="." method="_on_button1_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBox/NumPad/Button2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBox/NumPad/Button3" to="." method="_on_button_3_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBox/NumPad/Button4" to="." method="_on_button_4_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBox/NumPad/Button5" to="." method="_on_button_5_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBox/NumPad/Button6" to="." method="_on_button_6_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBox/NumPad/Button7" to="." method="_on_button_7_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBox/NumPad/Button8" to="." method="_on_button_8_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBox/NumPad/Button9" to="." method="_on_button_9_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBox/MarginContainer3/ClearButton" to="." method="_on_clear_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBox/Controls/LoadButton" to="." method="_on_load_button_pressed"]
