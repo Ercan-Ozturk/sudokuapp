@@ -11,7 +11,7 @@ var sudokus_list = Sudokus.new().sudokus
 var matrix = sudokus_list.pick_random()
 var rawMatrix = matrix.duplicate(true)
 var actions: Array[SudokuAction]
-var selectedButton: Vector2i
+var selectedButton: Vector2i = Vector2i(-1, -1)
 var config = ConfigFile.new()
 const SIZE = 9
 func _ready():
@@ -55,6 +55,7 @@ func _onSaveButtonPressed():
 	config.set_value("matrix", "sudoku", matrix.duplicate(true))
 	config.set_value("matrix", "rawMatrix", rawMatrix.duplicate(true))
 	config.save("res://savegame.cfg")
+	
 	#save_game()
 func undo():
 	var lastAction: SudokuAction = actions.pop_back()
@@ -188,7 +189,7 @@ func _draw():
 	draw_line(Vector2(START_X + BUTTON_SIZE*7 + OFFSET*2.5, VERTICAL_START), Vector2(START_X + BUTTON_SIZE*7 + OFFSET*2.5, END_Y), Color.SKY_BLUE, 3.0)
 	draw_line(Vector2(START_X + BUTTON_SIZE*8 + OFFSET*3, VERTICAL_START), Vector2(START_X + BUTTON_SIZE*8 + OFFSET*3, END_Y), Color.SKY_BLUE, 3.0)
 func inputProcess(val):
-	if selectedButton != null:
+	if selectedButton[0] != -1:
 		if placeNumber(selectedButton.x, selectedButton.y, val):
 			print("Valid")
 			statusText.text = "Valid Placement"
@@ -197,7 +198,7 @@ func inputProcess(val):
 			print("Invalid placement")
 			statusText.text = "Invalid Placement!"
 func removeInput():
-	if selectedButton:
+	if selectedButton[0] != -1:
 		var row = selectedButton[0]
 		var	col = selectedButton[1]
 		game_grid[row][col].text = ""
@@ -235,6 +236,7 @@ func _on_load_button_pressed() -> void:
 
 
 func _on_button1_pressed() -> void:
+	
 	inputProcess(1)
 
 func _on_button_2_pressed() -> void:
